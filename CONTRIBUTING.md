@@ -5,7 +5,7 @@
 ## 术语规范（务必遵守）
 
 - SkillUP：**首次出现**写「SkillUP（成长模型）」，后续一律「SkillUP」
-- Qoder → AI工具；Qoder-ready → AI-ready（但「如 Qoder」「Qoder 等 AI 编程助手」这类具体举例保留原名）
+- TRAE → AI工具；TRAE-ready → AI-ready（但「如 TRAE」「TRAE 等 AI 编程助手」这类具体举例保留原名）
 - 英文全名首次出现补注：Spec-Oriented Development（简称 SOD）
 - 文件名 / 路径中的术语不改
 
