@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面向规约方法 · 从提出到运营 · 推广经验 · 面向规约开发</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">面向规约开发<span class="en">Spec-Oriented Development</span></a>
+    <nav class="site-nav"><a href="index.html">总索引</a><a href="01-面向规约开发方法论.html">方法论</a><a href="02-面向规约方法-全过程经验.html" class="active">全过程经验</a><a href="03-面向规约方法-SkillUP案例.html">SkillUP 案例</a><a href="04-面向规约方法-数据治理案例.html">数据治理案例</a><a href="05-面向规约-可复用模板.html">可复用模板</a><a href="06-面向规约-可复用模板-实际例子.html">模板实例</a><a href="07-术语对照基准-慧惠开发方法论-Skills.html">慧惠 Skills</a></nav>
+  </div>
+</header>
+<main class="wrap">
+
+
+<nav class="toc"><div class="toc-title">本页目录</div><ul><li><a href="#导语-一个反直觉的结论">导语：一个反直觉的结论</a></li><li><a href="#一-提出-规约是长出来的-不是写出来的">一、提出：规约是长出来的，不是写出来的</a><ul><li><a href="#1-1-起点是一份-会迭代-的宪法">1.1 起点是一份「会迭代」的宪法</a></li><li><a href="#1-2-分层-价值观必须落到-可执行">1.2 分层：价值观必须落到「可执行」</a></li></ul></li><li><a href="#二-落地-两个案例-一正一反">二、落地：两个案例，一正一反</a><ul><li><a href="#2-1-正向案例-古版-竖排-规约顺利落地">2.1 正向案例：古版·竖排（规约顺利落地）</a></li><li><a href="#2-2-反向案例-SkillUP-成长模型-12-处偏差-规约失灵暴露问题">2.2 反向案例：SkillUP（成长模型）12 处偏差（规约失灵暴露问题）</a></li></ul></li><li><a href="#三-运营-四套自我强化机制">三、运营：四套自我强化机制</a><ul><li><a href="#3-1-偏差即教材">3.1 偏差即教材</a></li><li><a href="#3-2-经验即固化">3.2 经验即固化</a></li><li><a href="#3-3-周期复审-反者道之动">3.3 周期复审（反者道之动）</a></li><li><a href="#3-4-分级发布">3.4 分级发布</a></li></ul></li><li><a href="#四-可推广的五条铁律">四、可推广的五条铁律</a></li><li><a href="#五-迁移到新项目的最小启动清单">五、迁移到新项目的最小启动清单</a></li></ul></nav>
+<article class="content">
+<h1 id="面向规约方法-从提出到运营-推广经验">面向规约方法 · 从提出到运营 · 推广经验</h1>
+<blockquote>
+<p>这是一份讲「方法本身如何诞生、落地、持续运转」的经验文档，而非「方法是什么」的介绍。
+配套阅读：<a href="01-面向规约开发方法论.html">面向规约开发方法论</a>（方法是什么）+ <a href="05-面向规约-可复用模板.html">面向规约-可复用模板</a>（怎么套用）。
+案例来源：daodejing-kb（慧惠道德经）项目。</p>
+</blockquote>
+<hr />
+<h2 id="导语-一个反直觉的结论">导语：一个反直觉的结论</h2>
+<p>很多人以为「面向规约」是先设计一套完美的规约，再照着做。<strong>真实情况恰恰相反</strong>：规约不是「写出来」的，是「长出来」的——它靠一次次实现的偏差反哺、一次次周期的复审迭代，才逐步收敛成可复用的体系。</p>
+<p>本文要回答三个问题：</p>
+<ol>
+<li>这套方法是怎么被「提出」的？</li>
+<li>它落地时遇到了什么真实问题，又是怎么被「救回来」的？</li>
+<li>它靠什么机制「运营」下去，而不是沦为落灰的文档？</li>
+</ol>
+<hr />
+<h2 id="一-提出-规约是长出来的-不是写出来的">一、提出：规约是长出来的，不是写出来的</h2>
+<h3 id="1-1-起点是一份-会迭代-的宪法">1.1 起点是一份「会迭代」的宪法</h3>
+<p>项目的最高规约——《慧惠数字生命 · 最高产品宪法》——不是一次定稿的。从 v1.0（2026-05-08，11 条核心原则）到 v2.0.0（2026-06-02，32 条），中间经历了 <strong>10 个版本</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">阶段</th>
+<th style="text-align: left;">新增了什么</th>
+<th style="text-align: left;">背后的触发</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">v1.0</td>
+<td style="text-align: left;">11 条核心设计原则</td>
+<td style="text-align: left;">项目启动的价值观锚点</td>
+</tr>
+<tr>
+<td style="text-align: left;">v1.1～1.2</td>
+<td style="text-align: left;">外挂增强、亲子守护、哲学根基</td>
+<td style="text-align: left;">开发中意识到需要「技术边界」和「特殊人群保护」</td>
+</tr>
+<tr>
+<td style="text-align: left;">v1.3～1.4</td>
+<td style="text-align: left;">性分自觉、性分审查制度</td>
+<td style="text-align: left;">AI 开始越界替用户做决定，需要「画边界」</td>
+</tr>
+<tr>
+<td style="text-align: left;">v1.5～1.7</td>
+<td style="text-align: left;">觉性唤醒、多元思维、道境坐标系</td>
+<td style="text-align: left;">发现「单一标准」会伤害多元用户</td>
+</tr>
+<tr>
+<td style="text-align: left;">v1.8～1.9</td>
+<td style="text-align: left;">认知飞轮、P忠恕、身体第一性</td>
+<td style="text-align: left;">引入「人主机辅」与「防成瘾」的底线</td>
+</tr>
+<tr>
+<td style="text-align: left;">v2.0.0</td>
+<td style="text-align: left;">条款重排 + 周期复审制度（反者道之动）</td>
+<td style="text-align: left;">意识到「规约本身也需要被运营」</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键经验</strong>：一开始不可能设计出完美规约。真正重要的是——<strong>建立「让规约能自我修正」的机制</strong>（即宪法第五章的执行与修订制度、周期复审制度）。规约的价值不在「一开始多正确」，而在「有办法越来越正确」。</p>
+<h3 id="1-2-分层-价值观必须落到-可执行">1.2 分层：价值观必须落到「可执行」</h3>
+<p>光有价值观条款不够。这个项目把规约拆成了四层，每一层都是上一层的具体化：</p>
+<pre><code>宪法（价值观/边界）  →  为什么做、边界在哪
+   ↓ 具体化为
+设计文档（功能规格） →  做成什么样（数据模型/阈值/命名/状态机）
+   ↓ 具体化为
+工程约定（AGENTS）  →  怎么做（外挂增强/零服务端/设计tokens/代码模式）
+   ↓ 沉淀为
+项目记忆（memory）  →  踩过什么坑、定了什么决策（跨会话）
+</code></pre>
+<p><strong>关键经验</strong>：规约若只停留在价值观，就无法验收。一条「用户主权」要一路落到「localStorage 持久化 + 切换按钮」这种可观察动作，才真正生效。</p>
+<hr />
+<h2 id="二-落地-两个案例-一正一反">二、落地：两个案例，一正一反</h2>
+<h3 id="2-1-正向案例-古版-竖排-规约顺利落地">2.1 正向案例：古版·竖排（规约顺利落地）</h3>
+<p>需求「古籍竖排展示」没有直接写代码，而是先转译成规约条款，再实现回指规约：</p>
+<ul>
+<li>外挂增强（第十条）→ 新建独立 JS/CSS，不改章节核心代码</li>
+<li>用户主权（第七条）→ 切换 + localStorage 持久化</li>
+<li>减法优先（第五条）→ 默认古版 + 弱存在感控件</li>
+<li>坦诚透明（第九条）→ 底本 / 异文 / AI 辅助显性标注</li>
+</ul>
+<p>结果：代码注释直接标注条款映射，验收按「默认激活 / 繁体正确 / 右到左多列」逐条自检，一次性通过。</p>
+<h3 id="2-2-反向案例-SkillUP-成长模型-12-处偏差-规约失灵暴露问题">2.2 反向案例：SkillUP（成长模型）12 处偏差（规约失灵暴露问题）</h3>
+<p>SkillUP 认知成长追踪器早期实现，<strong>偏离了设计文档 12 处</strong>：把「水德」隐喻做成了「植物」、把阈值 10/30/60 做成了 3/10/30、把 4 条触发规则做成了 2 条、许可文件没拆独立、用了设计系统明令禁止的 <code>blur</code>/<code>box-shadow</code>……</p>
+<p><strong>这是整个方法成熟的转折点。</strong> 它暴露出一个核心问题：<strong>「有规约」不等于「按规约做」</strong>。如果只是悄悄改掉这 12 处，方法就失败了。</p>
+<p>项目的应对是：把这 12 处偏差<strong>永久写进 AGENTS.md 的「已知偏差案例」</strong>，作为反面教材。从此，「偏差」从「需要掩盖的失败」变成了「方法成长的养料」。</p>
+<p><strong>关键经验</strong>：规约体系真正成熟的标志，不是「零偏差」，而是「偏差被制度化地记录和反哺」。没有偏差案例的规约，是纸上谈兵。</p>
+<hr />
+<h2 id="三-运营-四套自我强化机制">三、运营：四套自我强化机制</h2>
+<p>「运营」面向规约方法，靠的不是人盯，而是四套内嵌机制：</p>
+<h3 id="3-1-偏差即教材">3.1 偏差即教材</h3>
+<p>偏离规约的实现 → 记入 AGENTS.md 反面案例 → 下个会话（哪怕换模型、换上下文）接手时直接看到「曾经错在哪、为什么错、正确做法」→ 不再重蹈覆辙。</p>
+<h3 id="3-2-经验即固化">3.2 经验即固化</h3>
+<p>一次性聪明（如简繁转换的二义字语境定字）→ 固化为脚本 + 命令 + 流程（<code>npm run s2t:check</code> / <code>s2t:accept</code> / <code>s2t</code>）→ 「复查」从「重新推理」变成「按规约执行」。</p>
+<h3 id="3-3-周期复审-反者道之动">3.3 周期复审（反者道之动）</h3>
+<p>宪法第三十二条专门规定了「周期性复审制度」：每个周期主动「返回」，审查「功能是否过度增生」「决策是否偏离核心原则」「技术债是否入侵宿主核心」。<strong>这是「用规约来运营规约」的自指结构</strong>——是方法能持续运转而不腐化的关键。</p>
+<h3 id="3-4-分级发布">3.4 分级发布</h3>
+<p>部署遵循「Vercel 灰度先行 → 验证稳定 → Cloudflare 生产入口」的分级流程，让每一处改动都在规约和真实环境的双重校验下推进。</p>
+<hr />
+<h2 id="四-可推广的五条铁律">四、可推广的五条铁律</h2>
+<ol>
+<li><strong>规约先于代码，但规约允许「先粗糙」</strong> —— 先有一份能迭代的规约，再动手；一开始不必完美，但必须留好「修订机制」。</li>
+<li><strong>价值观必须落到可验收动作</strong> —— 每一条规约都要能回答「验收标准是什么」，否则等于没有。</li>
+<li><strong>实现必须回指规约条款号</strong> —— 代码注释显式标注「为什么这么写」，让任何读者可追溯。</li>
+<li><strong>偏差是养料，不是事故</strong> —— 把偏差制度化记录为反面教材，方法才会越用越准。</li>
+<li><strong>方法自带元机制（周期复审）</strong> —— 定期「返回」审查规约本身是否仍在被遵守、是否仍正确，防止规约腐化。</li>
+</ol>
+<hr />
+<h2 id="五-迁移到新项目的最小启动清单">五、迁移到新项目的最小启动清单</h2>
+<p>按顺序执行，每步都可先「粗糙」后「迭代」：</p>
+<ol>
+<li><strong>写宪法</strong>：3～8 条价值观/边界，同时写清「怎么修订它」（修订机制比条款本身更重要）。</li>
+<li><strong>写一份设计文档</strong>：拿当前要做的第一个功能，写数据模型 + 阈值 + 命名 + 状态机。</li>
+<li><strong>建 AGENTS.md</strong>：技术约束 + 代码模式 + 一条「实现后自检清单」。</li>
+<li><strong>跑通第一个闭环</strong>：需求 → 转译 → 实现 → 自检 → 记录偏差。</li>
+<li><strong>建项目记忆</strong>：每个会话结束写 Hard Constraints / Conventions / Lessons Learned。</li>
+<li><strong>设周期复审</strong>：定一个节奏（如每季度），主动审查「是否偏离」+「规约是否仍正确」。</li>
+</ol>
+<blockquote>
+<p>一句话：<strong>不是先写好规约再开工，而是开工的同时建立「规约能自我修正」的机制——剩下的，让偏差和复审把它养大。</strong></p>
+</blockquote>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="principle">先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</div>
+  <div>面向规约开发 · Spec-Oriented Development</div>
+</footer>
+</body>
+</html>

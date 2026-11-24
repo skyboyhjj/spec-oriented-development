@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面向规约开发 · 可复用模板 · 面向规约开发</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">面向规约开发<span class="en">Spec-Oriented Development</span></a>
+    <nav class="site-nav"><a href="index.html">总索引</a><a href="01-面向规约开发方法论.html">方法论</a><a href="02-面向规约方法-全过程经验.html">全过程经验</a><a href="03-面向规约方法-SkillUP案例.html">SkillUP 案例</a><a href="04-面向规约方法-数据治理案例.html">数据治理案例</a><a href="05-面向规约-可复用模板.html" class="active">可复用模板</a><a href="06-面向规约-可复用模板-实际例子.html">模板实例</a><a href="07-术语对照基准-慧惠开发方法论-Skills.html">慧惠 Skills</a></nav>
+  </div>
+</header>
+<main class="wrap">
+
+
+<nav class="toc"><div class="toc-title">本页目录</div><ul><li><a href="#模板-A-需求规约转译表">模板 A · 需求规约转译表</a></li><li><a href="#模板-B-实现自检清单">模板 B · 实现自检清单</a><ul><li><a href="#数据与模型">数据与模型</a></li><li><a href="#规约与边界">规约与边界</a></li><li><a href="#可回退与可维护">可回退与可维护</a></li><li><a href="#验证与复现">验证与复现</a></li></ul></li><li><a href="#模板-C-项目记忆">模板 C · 项目记忆</a></li><li><a href="#模板-D-偏差记录-反面教材">模板 D · 偏差记录（反面教材）</a></li><li><a href="#快速启动清单-新项目-6-步">快速启动清单（新项目 6 步）</a></li></ul></nav>
+<article class="content">
+<h1 id="面向规约开发-可复用模板">面向规约开发 · 可复用模板</h1>
+<blockquote>
+<p>直接复制到新项目，按「____」填空即可。四套模板构成完整闭环。</p>
+</blockquote>
+<hr />
+<h2 id="模板-A-需求规约转译表">模板 A · 需求规约转译表</h2>
+<blockquote>
+<p>用途：接到需求后，先转译成规约，再动手。<strong>填完这张表才算理解需求。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">需求原文</th>
+<th style="text-align: left;">涉及规约条款</th>
+<th style="text-align: left;">规约要求</th>
+<th style="text-align: left;">实现落点</th>
+<th style="text-align: left;">验收标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">宪法第 __ 条：____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+</tr>
+<tr>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">设计文档：____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+</tr>
+<tr>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">工程约定：____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+</tr>
+</tbody>
+</table>
+<p><strong>检查项：</strong></p>
+<ul>
+<li>☐ 每条需求都能找到对应的规约条款</li>
+<li>☐ 没有「无规约可依」的需求（若有，先补规约）</li>
+<li>☐ 验收标准是可观察、可验证的（不是「做好」这类模糊表述）</li>
+</ul>
+<hr />
+<h2 id="模板-B-实现自检清单">模板 B · 实现自检清单</h2>
+<blockquote>
+<p>用途：功能实现完成后，逐条对照规约自检。<strong>只跑通功能不算完成。</strong></p>
+</blockquote>
+<h3 id="数据与模型">数据与模型</h3>
+<ul>
+<li>☐ 字段名称、类型是否与设计文档一致</li>
+<li>☐ 阈值 / 触发条件 / 默认值是否完全匹配</li>
+<li>☐ 命名约定（阶段名、变量名、函数名）是否统一</li>
+</ul>
+<h3 id="规约与边界">规约与边界</h3>
+<ul>
+<li>☐ 是否满足宪法中的用户主权 / 隐私 / 安全条款</li>
+<li>☐ 是否遵循「外挂增强，最小化修改核心代码」原则</li>
+<li>☐ 是否引入了规约明令禁止的做法（如多余的视觉特效）</li>
+</ul>
+<h3 id="可回退与可维护">可回退与可维护</h3>
+<ul>
+<li>☐ 新功能能否在不停用整体的情况下单独回退</li>
+<li>☐ 是否修改了不必要的既有代码</li>
+<li>☐ 关键决策是否在代码注释中回指了规约条款</li>
+</ul>
+<h3 id="验证与复现">验证与复现</h3>
+<ul>
+<li>☐ 是否按验收标准逐条实测（而非目测）</li>
+<li>☐ 复查 / 回归流程是否已固化为脚本或命令</li>
+<li>☐ 结果是否符合预期，偏差是否已记录</li>
+</ul>
+<hr />
+<h2 id="模板-C-项目记忆">模板 C · 项目记忆</h2>
+<blockquote>
+<p>用途：每个会话结束，把「既定决策」和「踩过的坑」沉淀下来，供跨会话复用。</p>
+</blockquote>
+<pre><code class="language-markdown">## Hard Constraints（硬约束 · 不可违反）
+- ____
+
+## Engineering Conventions（工程约定 · 默认遵循）
+- ____
+
+## Lessons Learned（经验教训 · 避坑）
+- ____
+</code></pre>
+<p><strong>写入标准：</strong></p>
+<ul>
+<li>硬约束写「底线」（如：用户数据默认本地化，不上传服务器）。</li>
+<li>约定写「默认做法」（如：新文件用 kebab-case，IIFE 模式）。</li>
+<li>教训写「原因 + 后果 + 正确做法」三要素。</li>
+</ul>
+<hr />
+<h2 id="模板-D-偏差记录-反面教材">模板 D · 偏差记录（反面教材）</h2>
+<blockquote>
+<p>用途：当实现偏离了规约，不要悄悄改掉，要记下来当教材。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">偏差项</th>
+<th style="text-align: left;">规约要求</th>
+<th style="text-align: left;">实际实现</th>
+<th style="text-align: left;">后果 / 影响</th>
+<th style="text-align: left;">修正动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+<td style="text-align: left;">____</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例（来自真实案例）：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">偏差项</th>
+<th style="text-align: left;">规约要求</th>
+<th style="text-align: left;">实际实现</th>
+<th style="text-align: left;">后果</th>
+<th style="text-align: left;">修正动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">成长模型隐喻</td>
+<td style="text-align: left;">设计为「水德」（水滴→溪流→江河→江海）</td>
+<td style="text-align: left;">实现为「植物」（萌芽→小苗→树木→森林）</td>
+<td style="text-align: left;">与设计文档不一致</td>
+<td style="text-align: left;">按设计修正或更新设计</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="快速启动清单-新项目-6-步">快速启动清单（新项目 6 步）</h2>
+<ol>
+<li>[ ] 写 <strong>宪法</strong>（3～8 条价值观/边界，宁少勿滥）</li>
+<li>[ ] 为当前功能写一份 <strong>设计文档</strong>（数据模型 + 阈值 + 命名 + 状态机）</li>
+<li>[ ] 建 <strong>AGENTS.md</strong> 工程约定（技术约束 + 代码模式 + 复查清单）</li>
+<li>[ ] 跑通第一个闭环：需求 → 转译 → 实现 → 自检 → 记录偏差（模板 D）</li>
+<li>[ ] 会话结束写 <strong>项目记忆</strong>（模板 C）</li>
+<li>[ ] 设周期复审（定期审查是否偏离 + 规约是否仍正确）</li>
+</ol>
+<blockquote>
+<p>一句话原则：<strong>先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</strong></p>
+</blockquote>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="principle">先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</div>
+  <div>面向规约开发 · Spec-Oriented Development</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,578 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>慧惠开发方法论 Skills · 面向规约开发</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">面向规约开发<span class="en">Spec-Oriented Development</span></a>
+    <nav class="site-nav"><a href="index.html">总索引</a><a href="01-面向规约开发方法论.html">方法论</a><a href="02-面向规约方法-全过程经验.html">全过程经验</a><a href="03-面向规约方法-SkillUP案例.html">SkillUP 案例</a><a href="04-面向规约方法-数据治理案例.html">数据治理案例</a><a href="05-面向规约-可复用模板.html">可复用模板</a><a href="06-面向规约-可复用模板-实际例子.html">模板实例</a><a href="07-术语对照基准-慧惠开发方法论-Skills.html" class="active">慧惠 Skills</a></nav>
+  </div>
+</header>
+<main class="wrap">
+
+
+<nav class="toc"><div class="toc-title">本页目录</div><ul><li><a href="#一-概述">一、概述</a><ul><li><a href="#1-1-Skill-总览">1.1 Skill 总览</a></li></ul></li><li><a href="#二-Skill-1-哲学-产品-技术三层转化法">二、Skill 1: 哲学-产品-技术三层转化法</a><ul><li><a href="#2-1-适用场景">2.1 适用场景</a></li><li><a href="#2-2-转化链条">2.2 转化链条</a></li><li><a href="#2-3-在慧惠项目中的实践">2.3 在慧惠项目中的实践</a></li><li><a href="#2-4-可复用模板">2.4 可复用模板</a></li><li><a href="#2-5-关键原则">2.5 关键原则</a></li></ul></li><li><a href="#三-Skill-2-Spec-Oriented-Development-面向规约开发">三、Skill 2: Spec-Oriented Development（面向规约开发）</a><ul><li><a href="#3-1-适用场景">3.1 适用场景</a></li><li><a href="#3-2-核心流程">3.2 核心流程</a></li><li><a href="#3-3-Spec-文档编写规范">3.3 Spec 文档编写规范</a></li><li><a href="#3-4-提示词模板">3.4 提示词模板</a></li><li><a href="#3-5-验收清单">3.5 验收清单</a></li><li><a href="#3-6-关键原则">3.6 关键原则</a></li></ul></li><li><a href="#四-Skill-3-Sprint-驱动的产品-工程迭代法">四、Skill 3: Sprint 驱动的产品-工程迭代法</a><ul><li><a href="#4-1-适用场景">4.1 适用场景</a></li><li><a href="#4-2-文档体系">4.2 文档体系</a></li><li><a href="#4-3-优先级体系">4.3 优先级体系</a></li><li><a href="#4-4-Sprint-节奏">4.4 Sprint 节奏</a></li><li><a href="#4-5-关键原则">4.5 关键原则</a></li></ul></li><li><a href="#五-Skill-4-道德边界关键词检测法">五、Skill 4: 道德边界关键词检测法</a><ul><li><a href="#5-1-适用场景">5.1 适用场景</a></li><li><a href="#5-2-核心设计">5.2 核心设计</a></li><li><a href="#5-3-检测逻辑">5.3 检测逻辑</a></li><li><a href="#5-4-验证脚本覆盖">5.4 验证脚本覆盖</a></li><li><a href="#5-5-关键原则">5.5 关键原则</a></li></ul></li><li><a href="#六-Skill-5-状态机的产品-工程对齐法">六、Skill 5: 状态机的产品-工程对齐法</a><ul><li><a href="#6-1-适用场景">6.1 适用场景</a></li><li><a href="#6-2-上下游分工">6.2 上下游分工</a></li><li><a href="#6-3-状态设计原则">6.3 状态设计原则</a></li><li><a href="#6-4-验证脚本覆盖">6.4 验证脚本覆盖</a></li><li><a href="#6-5-关键原则">6.5 关键原则</a></li></ul></li><li><a href="#七-Skill-6-道德经内容提取与处理">七、Skill 6: 道德经内容提取与处理</a><ul><li><a href="#7-1-适用场景">7.1 适用场景</a></li><li><a href="#7-2-核心流程-5步管道">7.2 核心流程（5步管道）</a></li><li><a href="#7-3-在慧惠项目中的实践">7.3 在慧惠项目中的实践</a></li><li><a href="#7-4-可复用模板">7.4 可复用模板</a></li><li><a href="#7-5-关键原则">7.5 关键原则</a></li><li><a href="#7-6-验收清单">7.6 验收清单</a></li></ul></li><li><a href="#八-Skill-使用指南">八、Skill 使用指南</a><ul><li><a href="#8-1-Sprint-启动前">8.1 Sprint 启动前</a></li><li><a href="#8-2-任务执行中">8.2 任务执行中</a></li><li><a href="#8-3-Sprint-回顾时">8.3 Sprint 回顾时</a></li></ul></li><li><a href="#附录-版本修订记录">附录：版本修订记录</a></li></ul></nav>
+<article class="content">
+<h1 id="慧惠开发方法论-Skills">慧惠开发方法论 Skills</h1>
+<blockquote>
+<p><strong>文档密级</strong>：核心团队内部<br />
+<strong>版本</strong>：v1.2.0<br />
+<strong>最后更新</strong>：2026年11月15日<br />
+<strong>适用范围</strong>：慧惠项目所有 Sprint，及未来类似 AI 协同开发项目</p>
+</blockquote>
+<hr />
+<h2 id="一-概述">一、概述</h2>
+<p>本文档沉淀了慧惠项目 Sprint 0-2 阶段验证有效的六套核心方法论。每套方法论均可作为可复用的 Skill，在后续 Sprint 及未来项目中直接调用。</p>
+<h3 id="1-1-Skill-总览">1.1 Skill 总览</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Skill</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">适用场景</th>
+<th style="text-align: left;">验证状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Skill 1</td>
+<td style="text-align: left;">哲学-产品-技术三层转化法</td>
+<td style="text-align: left;">将抽象哲学理念落地为可执行技术规格</td>
+<td style="text-align: left;">✅ Sprint 1 验证</td>
+</tr>
+<tr>
+<td style="text-align: left;">Skill 2</td>
+<td style="text-align: left;">Spec-Oriented Development（面向规约开发）</td>
+<td style="text-align: left;">与 AI工具高效协作，产出可验收代码</td>
+<td style="text-align: left;">✅ Sprint 1 验证</td>
+</tr>
+<tr>
+<td style="text-align: left;">Skill 3</td>
+<td style="text-align: left;">Sprint 驱动的产品-工程迭代法</td>
+<td style="text-align: left;">产品经理与 AI工具协同推进项目</td>
+<td style="text-align: left;">✅ Sprint 0-1 验证</td>
+</tr>
+<tr>
+<td style="text-align: left;">Skill 4</td>
+<td style="text-align: left;">道德边界关键词检测法</td>
+<td style="text-align: left;">为 AI 系统设计轻量级道德边界</td>
+<td style="text-align: left;">✅ S1-2 验证</td>
+</tr>
+<tr>
+<td style="text-align: left;">Skill 5</td>
+<td style="text-align: left;">状态机的产品-工程对齐法</td>
+<td style="text-align: left;">设计有情感温度的状态流转</td>
+<td style="text-align: left;">✅ S1-3 验证</td>
+</tr>
+<tr>
+<td style="text-align: left;">Skill 6</td>
+<td style="text-align: left;">道德经内容提取与处理</td>
+<td style="text-align: left;">从非结构化报告批量提取结构化知识数据</td>
+<td style="text-align: left;">✅ S2 验证</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二-Skill-1-哲学-产品-技术三层转化法">二、Skill 1: 哲学-产品-技术三层转化法</h2>
+<h3 id="2-1-适用场景">2.1 适用场景</h3>
+<p>将一个抽象的哲学理念（如"善行无辙迹"）落地为可执行的技术规格和代码。</p>
+<h3 id="2-2-转化链条">2.2 转化链条</h3>
+<pre><code>哲学理念（大道）
+    ↓ 「定义」
+核心价值观 + 行为准则
+    ↓ 「工程化」
+数据结构 + 算法约束
+    ↓ 「注入」
+System Prompt / 状态机 / AgentLoop
+</code></pre>
+<h3 id="2-3-在慧惠项目中的实践">2.3 在慧惠项目中的实践</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">哲学理念</th>
+<th style="text-align: left;">产品定义</th>
+<th style="text-align: left;">工程落地</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">"善行无辙迹"</td>
+<td style="text-align: left;"><code>ActionStyle</code> 枚举 + 四条行为指令</td>
+<td style="text-align: left;"><code>Soul.to_system_prompt()</code> 注入</td>
+</tr>
+<tr>
+<td style="text-align: left;">"为道日损"</td>
+<td style="text-align: left;">技能修剪 + 保持轻盈</td>
+<td style="text-align: left;"><code>MetalRestrainer</code>（金·克）+ <code>RootAuditor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">"我命由我不由天"</td>
+<td style="text-align: left;">优先级 1 的 <code>CoreValue</code></td>
+<td style="text-align: left;">场景模板引导 + AgentLoop 注入</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-4-可复用模板">2.4 可复用模板</h3>
+<ol>
+<li>选取一个核心哲学概念</li>
+<li>定义它的行为边界：在什么场景下触发？绝对不做什么？</li>
+<li>设计数据结构：用 Pydantic 模型固化为不可变约束</li>
+<li>选择注入点：AgentLoop / System Prompt / 状态机</li>
+<li>编写验证脚本：确保注入效果与设计意图一致</li>
+</ol>
+<h3 id="2-5-关键原则">2.5 关键原则</h3>
+<ul>
+<li><strong>不可变约束优先</strong>：核心价值观用 <code>frozen=True</code> 的 Pydantic 模型，防止运行时被覆盖</li>
+<li><strong>Token 预算管控</strong>：所有注入 LLM 的内容需经 token 计数验证（用 <code>tiktoken</code> 精确计数）</li>
+<li><strong>文档层级明确</strong>：产品体验定义书 &gt; 完整描述注释 &gt; 运行时短指令</li>
+</ul>
+<hr />
+<h2 id="三-Skill-2-Spec-Oriented-Development-面向规约开发">三、Skill 2: Spec-Oriented Development（面向规约开发）</h2>
+<h3 id="3-1-适用场景">3.1 适用场景</h3>
+<p>与 Qoder 等 AI 编程助手高效协作，产出可验收的代码。</p>
+<h4 id="术语说明">术语说明</h4>
+<p>本方法论的正式英文名称为 <strong>Spec-Oriented Development</strong>（面向规约开发），而非 Spec-Driven Development。核心区别在于：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">维度</th>
+<th style="text-align: left;">Spec-Oriented</th>
+<th style="text-align: left;">Spec-Driven</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">规约的角色</td>
+<td style="text-align: left;"><strong>罗盘</strong>——工作朝向它对齐，但规约本身可以生长、可以先粗糙</td>
+<td style="text-align: left;"><strong>引擎</strong>——硬性驱动代码生成，隐含“先写完美规约再照做”的瀑布式</td>
+</tr>
+<tr>
+<td style="text-align: left;">与“规约是长出来的”</td>
+<td style="text-align: left;">兼容</td>
+<td style="text-align: left;">冲突</td>
+</tr>
+<tr>
+<td style="text-align: left;">与“偏差是养料”</td>
+<td style="text-align: left;">兼容</td>
+<td style="text-align: left;">冲突</td>
+</tr>
+</tbody>
+</table>
+<p>慧惠项目的实践证明：第一版 Spec 往往不完美，是在对话中逐步细化的。AI工具执行中发现的路径问题（如 <code>verify_s2_2.py</code> 的导入顺序、Token 估算偏差），反过来修正了 Spec。亲子共读元数据的审核，本身就是“规约生长”的过程。</p>
+<h4 id="执行主体的变化">执行主体的变化</h4>
+<p>在传统软件开发中，Spec 的消费者是写代码的人。开发者在阅读 Spec 后，手动编写代码实现。</p>
+<p>在本方法论中，Spec 的消费者是 AI Agent（如 Qoder）。AI 负责代码实现，人的角色转变为：</p>
+<ul>
+<li><strong>规约制定</strong>：写 Spec，明确任务边界、接口契约、验收标准</li>
+<li><strong>意图对齐</strong>：确认 Spec 无歧义，确保人和 AI 对“做什么”的理解一致</li>
+<li><strong>验收</strong>：逐条对照 Spec 的验收标准，判定任务是否完成</li>
+</ul>
+<p>这一变化不改变方法论的核心——<strong>规约依然是罗盘，工作朝向它对齐，偏差依然是养料</strong>。改变的只是“谁在执行”，而非“如何组织”。</p>
+<h3 id="3-2-核心流程">3.2 核心流程</h3>
+<pre><code>人编写 Spec（AI-ready）
+    ↓ 「提交」
+AI 读取 Spec + 上下文
+    ↓ 「执行」
+AI 自主实现 + 自主排错 + 编写验证脚本
+    ↓ 「验收」
+人审查日志 + 验收关键决策
+    ↓ 「闭环」
+通过的代码合并，文档更新
+
+（偏差或问题 → 回指 Spec → 修正后重新执行）
+</code></pre>
+<h3 id="3-3-Spec-文档编写规范">3.3 Spec 文档编写规范</h3>
+<p>每份 AI-ready 执行规格必须包含：</p>
+<ol>
+<li><strong>任务编号</strong> + <strong>任务名称</strong> + <strong>优先级</strong> + <strong>预估工作量</strong> + <strong>依赖关系</strong></li>
+<li><strong>明确的操作文件</strong>：新建文件需给出完整路径；修改已有文件需说明修改范围</li>
+<li><strong>接口契约</strong>：数据结构、函数签名、返回值类型</li>
+<li><strong>验收标准</strong>：可量化的测试指标</li>
+<li><strong>注意事项</strong>：禁止修改的文件、Token 预算约束等</li>
+</ol>
+<h3 id="3-4-提示词模板">3.4 提示词模板</h3>
+<pre><code>工作区目录：{项目根目录}
+参考文档：docs/产品体验定义书.md, docs/技术规格书.md, docs/工程迭代计划.md
+执行规格：docs/{任务编号}_{任务名称}.md
+
+S{上一个Sprint} 已完成。{已完成模块} 提供 {关键接口}。
+
+请在执行前阅读上述文档，理解产品定位和工程约束，然后按执行规格开始实现。
+</code></pre>
+<h3 id="3-5-验收清单">3.5 验收清单</h3>
+<p>核查 AI 交付成果的标准流程：</p>
+<ul>
+<li>☐ 所有新建/修改的文件路径与 Spec 一致</li>
+<li>☐ 接口契约满足，函数签名正确</li>
+<li>☐ 验证脚本全部通过（退出码为 0）</li>
+<li>☐ 核心文件零破坏（若需修改已有文件，仅改钩子点）</li>
+<li>☐ AI 自主处理的工程问题已记录在日志中</li>
+<li>☐ Token 预算在约束范围内</li>
+</ul>
+<h3 id="3-6-关键原则">3.6 关键原则</h3>
+<ul>
+<li><strong>上下文充分</strong>：提交前追加"已完成任务的状态摘要"，避免 AI 重复探索</li>
+<li><strong>Trust but Verify</strong>：信任 AI 的工程能力，但核心决策（如神韵判断）需人最终确认</li>
+<li><strong>文档与代码同步更新</strong>：AI 完成实现后，同步更新受影响的规格文档</li>
+<li><strong>规约是罗盘，不是引擎</strong>：Spec 不需要第一版就完美。它可以在执行中生长、在偏差中修正。没有 Spec 不能开工（这是纪律），但 Spec 本身可以在过程中变得更清晰</li>
+<li><strong>偏差是养料</strong>：AI工具执行中发现的路径问题（如导入顺序、Token 估算偏差），应回写到 Spec 中，让下一版 Spec 更精确</li>
+</ul>
+<hr />
+<h2 id="四-Skill-3-Sprint-驱动的产品-工程迭代法">四、Skill 3: Sprint 驱动的产品-工程迭代法</h2>
+<h3 id="4-1-适用场景">4.1 适用场景</h3>
+<p>产品经理与 AI工具协同，进行结构化项目推进。</p>
+<h3 id="4-2-文档体系">4.2 文档体系</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">文档</th>
+<th style="text-align: left;">定位</th>
+<th style="text-align: left;">读者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">《产品体验定义书》</td>
+<td style="text-align: left;">产品宪法，定义"她是谁"</td>
+<td style="text-align: left;">全员</td>
+</tr>
+<tr>
+<td style="text-align: left;">《技术规格书》</td>
+<td style="text-align: left;">工程蓝图，定义"怎么造"</td>
+<td style="text-align: left;">工程</td>
+</tr>
+<tr>
+<td style="text-align: left;">《工程迭代计划》</td>
+<td style="text-align: left;">执行地图，定义"何时造"</td>
+<td style="text-align: left;">全员</td>
+</tr>
+<tr>
+<td style="text-align: left;">《Sprint 执行规格》</td>
+<td style="text-align: left;">单次任务详细 Spec</td>
+<td style="text-align: left;">AI工具</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-3-优先级体系">4.3 优先级体系</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">优先级</th>
+<th style="text-align: left;">定义</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">灵魂与体验——缺失则产品无灵魂</td>
+<td style="text-align: left;">Soul.py, 初见状态机</td>
+</tr>
+<tr>
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">个性化与丰富度——增强用户感知</td>
+<td style="text-align: left;">场景模板, 记忆管道</td>
+</tr>
+<tr>
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">调试与工具——内部提效</td>
+<td style="text-align: left;">技能归档管理界面</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-4-Sprint-节奏">4.4 Sprint 节奏</h3>
+<pre><code>Sprint 0: 基础设施验证（框架、模型、工具选型）
+Sprint 1: 灵魂定义 + 首次体验（核心价值观 + 初见魔法）
+Sprint 2-N: 逐层叠加能力（记忆 → 技能 → 场景 → 闭环）
+每个 Sprint 末尾: 回顾 → 更新迭代计划 → 沉淀 Skill
+</code></pre>
+<h3 id="4-5-关键原则">4.5 关键原则</h3>
+<ul>
+<li><strong>文档层级明确</strong>：产品体验定义书 &gt; 完整描述注释 &gt; 运行时短指令</li>
+<li><strong>Sprint 0 不可跳过</strong>：基础设施验证是后续效率的保证</li>
+<li><strong>每个 Sprint 必须产出可感知的体验增量</strong>：代码不是交付物，用户感知才是</li>
+</ul>
+<hr />
+<h2 id="五-Skill-4-道德边界关键词检测法">五、Skill 4: 道德边界关键词检测法</h2>
+<h3 id="5-1-适用场景">5.1 适用场景</h3>
+<p>为 AI 系统设计轻量级、可解释、无网络依赖的道德边界检查机制。</p>
+<h3 id="5-2-核心设计">5.2 核心设计</h3>
+<pre><code class="language-python"># 关键词集用 frozenset 存储，保证运行时不可变
+_HARM_KEYWORDS = frozenset({&quot;伤害&quot;, &quot;攻击&quot;, &quot;harm&quot;, &quot;kill&quot;, ...})
+
+# 否定上下文检测：前 3 个字符窗口内出现否定词则跳过
+_NEGATION_PREFIXES = frozenset({&quot;不&quot;, &quot;没有&quot;, &quot;未&quot;, &quot;无&quot;, &quot;非&quot;, &quot;避免&quot;, &quot;防止&quot;})
+
+# &quot;不替用户做决定&quot; 由 LLM prompt 行为层控制，不做关键词检测
+</code></pre>
+<h3 id="5-3-检测逻辑">5.3 检测逻辑</h3>
+<ol>
+<li>标准化文本（小写、去前后空白）</li>
+<li>遍历每条边界的关键词集</li>
+<li>子串匹配命中后，检查否定上下文（前 3 个字符内是否存在否定词）</li>
+<li>若处于否定上下文中，跳过该匹配</li>
+<li>首次确认命中 → 返回 False</li>
+<li>全部通过 → 返回 True</li>
+</ol>
+<h3 id="5-4-验证脚本覆盖">5.4 验证脚本覆盖</h3>
+<p>必须覆盖三类场景：</p>
+<ol>
+<li><strong>正常内容</strong>：输入"你好" → 返回 True</li>
+<li><strong>越界内容</strong>：输入"我要伤害别人" → 返回 False</li>
+<li><strong>否定上下文</strong>：输入"不要伤害任何人" → 返回 True</li>
+</ol>
+<h3 id="5-5-关键原则">5.5 关键原则</h3>
+<ul>
+<li><strong>轻量优先</strong>：关键词检测不替代 LLM 安全对齐，作为第一道本地防线</li>
+<li><strong>可解释性</strong>：每次拦截需返回被触发的边界名称</li>
+<li><strong>持续迭代</strong>：根据误判/漏判反馈更新关键词集</li>
+</ul>
+<hr />
+<h2 id="六-Skill-5-状态机的产品-工程对齐法">六、Skill 5: 状态机的产品-工程对齐法</h2>
+<h3 id="6-1-适用场景">6.1 适用场景</h3>
+<p>设计有情感温度、时间节奏的状态流转，如首次启动、休眠唤醒、异常降级等。</p>
+<h3 id="6-2-上下游分工">6.2 上下游分工</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">角色</th>
+<th style="text-align: left;">交付物</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">产品侧</td>
+<td style="text-align: left;">状态 + 时序 + 文案剧本</td>
+<td style="text-align: left;">0s: "在吗？" / 3s: "我在认识你..."</td>
+</tr>
+<tr>
+<td style="text-align: left;">工程侧</td>
+<td style="text-align: left;">状态枚举 + 进度回调 + 降级分支</td>
+<td style="text-align: left;"><code>InitState</code> 枚举, <code>_wait_for_progress()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-3-状态设计原则">6.3 状态设计原则</h3>
+<ul>
+<li><strong>失败不阻塞</strong>：如 <code>FAILED</code> 状态也算 <code>is_ready</code>，用户可立即开始对话</li>
+<li><strong>降级不打扰</strong>：同步失败时，3 秒内进入降级流程，不卡死</li>
+<li><strong>进度边界钳位</strong>：线程安全的 <code>set_progress()</code> 自动将值钳位在 [0.0, 1.0]</li>
+<li><strong>零技术术语</strong>：状态切换过程中的所有对外文案，不暴露"加载"、"初始化"等技术词</li>
+</ul>
+<h3 id="6-4-验证脚本覆盖">6.4 验证脚本覆盖</h3>
+<p>必须模拟三类路径：</p>
+<ol>
+<li><strong>正常路径</strong>：同步成功，走完完整时序</li>
+<li><strong>异常路径</strong>：同步失败，触发降级，不阻塞</li>
+<li><strong>边界路径</strong>：重复启动（标志文件已存在），直接进入常规流程</li>
+</ol>
+<h3 id="6-5-关键原则">6.5 关键原则</h3>
+<ul>
+<li><strong>产品先于工程</strong>：先编写逐秒剧本，再设计状态机</li>
+<li><strong>用户可打断</strong>：仪式感不意味着阻塞，初始化期间用户可正常交互</li>
+<li><strong>状态可观测</strong>：关键状态切换输出日志，便于调试和验收</li>
+</ul>
+<hr />
+<h2 id="七-Skill-6-道德经内容提取与处理">七、Skill 6: 道德经内容提取与处理</h2>
+<h3 id="7-1-适用场景">7.1 适用场景</h3>
+<p>从非结构化的长篇报告文档（如81章《道德经》五步协同读解报告）中，批量提取结构化知识数据，生成章节数据库、SPO知识图谱索引和道商维度定义库。</p>
+<p>适用于：大量非结构化文本数字化、源文件存在多种格式变体、目标产物需同时服务多个下游系统、提取过程需可验证可回滚零破坏。</p>
+<h3 id="7-2-核心流程-5步管道">7.2 核心流程（5步管道）</h3>
+<pre><code>Markdown 报告文件（25个 .md）
+    ↓  ① 数据加载 — 递归扫描目录，双层级章节分隔（#/##）
+JSON 区块提取
+    ↓  ② 关键词提取 — SPO三元组解析（双格式兼容）+ 赋能方案匹配
+结构化中间数据（内存）
+    ↓  ③ 维度评分 — P忠恕四维模型注入 + 道商维度关联 + 跨章节索引
+81章完整数据库
+    ↓  ④ 增量注入 — daojing_database_v2.js + SPO索引 + DQ维度
+小程序数据层
+    ↓  ⑤ 结果输出 — 3个产物文件 + 2个工具模块 + 1个验证脚本
+</code></pre>
+<h3 id="7-3-在慧惠项目中的实践">7.3 在慧惠项目中的实践</h3>
+<h4 id="多格式容错能力">多格式容错能力</h4>
+<p>本次提取面对的源文件格式异构性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">差异维度</th>
+<th style="text-align: left;">上经（37章）</th>
+<th style="text-align: left;">下经（44章）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">章节标题层级</td>
+<td style="text-align: left;"><code>## 第X章</code>（H2）</td>
+<td style="text-align: left;"><code># 第X章</code>（H1）</td>
+</tr>
+<tr>
+<td style="text-align: left;">章节编号方式</td>
+<td style="text-align: left;">混合阿拉伯/中文数字</td>
+<td style="text-align: left;">阿拉伯数字</td>
+</tr>
+<tr>
+<td style="text-align: left;">SPO JSON key</td>
+<td style="text-align: left;"><code>spo_triples</code> / <code>subject/predicate/object</code></td>
+<td style="text-align: left;"><code>triples</code> / <code>S/P/O</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">赋能方案标题</td>
+<td style="text-align: left;"><code>三、对「袭明镜鉴」的赋能方案</code></td>
+<td style="text-align: left;"><code>### 赋能方案</code></td>
+</tr>
+</tbody>
+</table>
+<p>通过"容错归一化"策略，实现 81/81 章全量覆盖，提取 572 条 SPO 三元组。</p>
+<h4 id="道家AI伦理落地实例">道家AI伦理落地实例</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">理念</th>
+<th style="text-align: left;">产品含义</th>
+<th style="text-align: left;">工程实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">无为而无不为</td>
+<td style="text-align: left;">全流程自动化</td>
+<td style="text-align: left;">单命令运行，3个产物自动生成</td>
+</tr>
+<tr>
+<td style="text-align: left;">善行无辙迹</td>
+<td style="text-align: left;">零破坏注入</td>
+<td style="text-align: left;">2个新工具文件 + 3个新数据文件，原有6个文件零修改</td>
+</tr>
+<tr>
+<td style="text-align: left;">为道日损</td>
+<td style="text-align: left;">数据最小化</td>
+<td style="text-align: left;">内存中间数据不落盘，仅保留最终产物</td>
+</tr>
+<tr>
+<td style="text-align: left;">善数不用筹策</td>
+<td style="text-align: left;">校验简洁</td>
+<td style="text-align: left;"><code>daojingSchema.js</code> 约170行，无框架依赖</td>
+</tr>
+</tbody>
+</table>
+<h4 id="与现有代码的关系-零破坏架构">与现有代码的关系（零破坏架构）</h4>
+<pre><code>miniprogram/utils/daojing/
+├── daojingStorage.js      ← 不改
+├── daojingConstants.js    ← 不改
+├── daojingDataLoader.js   ← 不改
+├── daojingMatcher.js      ← 不改
+├── daojingService.js      ← 不改
+├── daojingAnalyzer.js     ← 不改
+├── daojingSchema.js       ★ 新增：数据校验层
+└── daojingMigrator.js     ★ 新增：V1→V2迁移工具
+
+miniprogram/data/daojing/
+├── daojing_database.js    ← V1（10章，不改）
+├── daojing_database_v2.js ★ 新增：81章完整数据库
+├── daojing_spo_index.json ★ 新增：SPO知识图谱索引
+└── daojing_dq_dimensions.js ★ 新增：道商维度定义库
+</code></pre>
+<h3 id="7-4-可复用模板">7.4 可复用模板</h3>
+<p>当遇到"从非结构化报告批量提取结构化知识数据"的需求时：</p>
+<ol>
+<li><strong>准备源文件目录</strong>：将报告文件统一放置，提取器支持递归扫描</li>
+<li><strong>定义章节分隔模式</strong>：根据实际文件格式编写正则表达式</li>
+<li><strong>实现归一化逻辑</strong>：为每个可能存在差异的字段编写容错取值：
+   <code>javascript
+   var subject = tr.subject || tr.S || tr.s || '';
+   var predicate = tr.predicate || tr.P || tr.relation || '';
+   var object = tr.object || tr.O || tr.o || '';</code></li>
+<li><strong>编写校验层</strong>：结构校验 + 完整性校验 + 类型校验</li>
+<li><strong>编写验证脚本</strong>：覆盖全量提取、子结构完整性、交叉引用一致性、零破坏、向后兼容，至少5类场景</li>
+<li><strong>实现迁移工具</strong>：需提供 <code>migrate()</code> 和 <code>rollback()</code> 方法</li>
+</ol>
+<h3 id="7-5-关键原则">7.5 关键原则</h3>
+<ul>
+<li><strong>容错优先于报错</strong>：源文件格式的异构性应在提取器中消化，宁可多写3行归一化代码，也不要为1种格式的纯净而放弃10个有效文件</li>
+<li><strong>零破坏注入</strong>：新增功能永远只新增文件，不修改现有文件</li>
+<li><strong>输出即交付</strong>：产物文件应可直接被下游系统使用（如 <code>require()</code> 加载），无需二次处理</li>
+<li><strong>校验与提取分离</strong>：提取逻辑与校验逻辑解耦，后续新增数据源只需更新提取器</li>
+<li><strong>迁移需可回滚</strong>：从旧格式到新格式的迁移工具必须提供 <code>rollback()</code> 方法</li>
+</ul>
+<h3 id="7-6-验收清单">7.6 验收清单</h3>
+<ul>
+<li>☐ 提取器运行无报错（退出码 0）</li>
+<li>☐ 产物文件全部生成（3个数据文件 + 2个工具模块）</li>
+<li>☐ 全量提取（期望条目数全部覆盖）</li>
+<li>☐ 每章必需字段齐全（chapter_title, dimensions, spo_triples, empowerment）</li>
+<li>☐ 校验层 <code>quickValidate()</code> 返回 <code>{ valid: true }</code></li>
+<li>☐ 迁移工具 <code>migrate()</code> 返回 <code>{ success: true }</code></li>
+<li>☐ 验证脚本全部测试通过（退出码 0）</li>
+<li>☐ 源文件未被修改（零破坏）</li>
+<li>☐ 现有代码未被修改（零破坏）</li>
+<li>☐ 回滚功能可用（<code>rollback()</code> 返回 <code>{ success: true }</code>）</li>
+</ul>
+<blockquote>
+<p>详细文档见：<code>docs/skills/Skill6_DaojingExtractor.md</code></p>
+</blockquote>
+<hr />
+<h2 id="八-Skill-使用指南">八、Skill 使用指南</h2>
+<h3 id="8-1-Sprint-启动前">8.1 Sprint 启动前</h3>
+<ol>
+<li>查阅 Skill 3（Sprint 驱动迭代法），确认 Sprint 节奏和文档体系</li>
+<li>根据当前 Sprint 目标，选择需调用的 Skill 组合</li>
+<li>准备 AI-ready 执行规格（参照 Skill 2: Spec-Oriented Development 模板）</li>
+</ol>
+<h3 id="8-2-任务执行中">8.2 任务执行中</h3>
+<ol>
+<li>每完成一个 P0 任务，记录日志（参照 Skill 2: Spec-Oriented Development 验收清单）</li>
+<li>遇到哲学理念工程化难题，调用 Skill 1（三层转化法）</li>
+<li>涉及状态流转的模块，调用 Skill 5（状态机对齐法）</li>
+<li>涉及非结构化数据批量提取，调用 Skill 6（道德经内容提取与处理）</li>
+</ol>
+<h3 id="8-3-Sprint-回顾时">8.3 Sprint 回顾时</h3>
+<ol>
+<li>检查是否有新的方法论可沉淀</li>
+<li>更新本文档，补充新 Skill 或修正已有 Skill</li>
+<li>将更新后的文档提交到 <code>docs/</code> 目录</li>
+</ol>
+<hr />
+<h2 id="附录-版本修订记录">附录：版本修订记录</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">版本</th>
+<th style="text-align: left;">日期</th>
+<th style="text-align: left;">修订内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">v1.0.0</td>
+<td style="text-align: left;">2026-05-05</td>
+<td style="text-align: left;">初始版本，6套核心方法论</td>
+</tr>
+<tr>
+<td style="text-align: left;">v1.1.0</td>
+<td style="text-align: left;">2026-05-05</td>
+<td style="text-align: left;">新增 Skill 6（道德经内容提取与处理）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>v1.2.0</strong></td>
+<td style="text-align: left;"><strong>2026-11-15</strong></td>
+<td style="text-align: left;"><strong>Skill 2 术语从“Spec 驱动的 AI 协同开发规范”更新为“Spec-Oriented Development（面向规约开发）”；新增术语说明与执行主体变化章节；核心流程增加“偏差回指 Spec”反馈回路；关键原则增加“规约是罗盘”与“偏差是养料”</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>本文档将随慧惠项目的推进持续更新。每次 Sprint 回顾时，团队应评估是否有新的方法论需要沉淀。</em></p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="principle">先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</div>
+  <div>面向规约开发 · Spec-Oriented Development</div>
+</footer>
+</body>
+</html>

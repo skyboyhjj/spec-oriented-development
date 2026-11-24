@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面向规约方法 · SkillUP 应用案例 · 面向规约开发</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">面向规约开发<span class="en">Spec-Oriented Development</span></a>
+    <nav class="site-nav"><a href="index.html">总索引</a><a href="01-面向规约开发方法论.html">方法论</a><a href="02-面向规约方法-全过程经验.html">全过程经验</a><a href="03-面向规约方法-SkillUP案例.html" class="active">SkillUP 案例</a><a href="04-面向规约方法-数据治理案例.html">数据治理案例</a><a href="05-面向规约-可复用模板.html">可复用模板</a><a href="06-面向规约-可复用模板-实际例子.html">模板实例</a><a href="07-术语对照基准-慧惠开发方法论-Skills.html">慧惠 Skills</a></nav>
+  </div>
+</header>
+<main class="wrap">
+
+
+<nav class="toc"><div class="toc-title">本页目录</div><ul><li><a href="#一-需求与规约的第一次交锋">一、需求与规约的第一次交锋</a><ul><li><a href="#需求本身">需求本身</a></li><li><a href="#一个危险的直觉">一个危险的直觉</a></li></ul></li><li><a href="#二-规约具体化为设计文档">二、规约具体化为设计文档</a><ul><li><a href="#2-1-成长模型-水德隐喻">2.1 成长模型（水德隐喻）</a></li><li><a href="#2-2-阶段判定-三维综合-非单一阈值">2.2 阶段判定（三维综合，非单一阈值）</a></li><li><a href="#2-3-数据模型-14-个字段">2.3 数据模型（14 个字段）</a></li><li><a href="#2-4-独立许可机制">2.4 独立许可机制</a></li><li><a href="#2-5-CSS-约束">2.5 CSS 约束</a></li></ul></li><li><a href="#三-实现偏离-12-处偏差的暴露">三、实现偏离：12 处偏差的暴露</a></li><li><a href="#四-修复与反哺-偏差如何变成方法的养料">四、修复与反哺：偏差如何变成方法的养料</a><ul><li><a href="#4-1-修复-v2-0-全部对齐">4.1 修复：v2.0 全部对齐</a></li><li><a href="#4-2-反哺-偏差被制度化记录">4.2 反哺：偏差被制度化记录</a></li><li><a href="#4-3-方法被-补上了一环">4.3 方法被「补上了一环」</a></li></ul></li><li><a href="#五-SkillUP-案例给-面向规约-方法的独有启示">五、SkillUP 案例给「面向规约」方法的独有启示</a></li><li><a href="#六-一句话总结">六、一句话总结</a></li></ul></nav>
+<article class="content">
+<h1 id="面向规约方法-SkillUP-应用案例">面向规约方法 · SkillUP 应用案例</h1>
+<blockquote>
+<p>这是「面向规约」方法在 SkillUP（成长模型）认知成长追踪器上的完整应用案例。
+与古版·竖排案例（正向、一帆风顺）不同，SkillUP 是<strong>反向案例 + 修复闭环</strong>：它经历了「规约失灵 → 暴露 12 处偏差 → 修复 → 反哺规约」的完整过程，最能说明这套方法在「实现偏离」时的自我纠偏能力。</p>
+</blockquote>
+<hr />
+<h2 id="一-需求与规约的第一次交锋">一、需求与规约的第一次交锋</h2>
+<h3 id="需求本身">需求本身</h3>
+<p>追踪孩子的学习行为（读了哪些章节、切了什么层级、问了什么问题），并可视化展示成长轨迹。</p>
+<h3 id="一个危险的直觉">一个危险的直觉</h3>
+<p>「追踪」这个词，天然踩中项目宪法的多条红线。如果直接开写，很容易做出一个「评分排行榜」式的监控系统——而这正是宪法明令禁止的。</p>
+<p><strong>面向规约方法的第一步，就是把需求翻译成「要守住哪些边界」：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">需求直觉</th>
+<th style="text-align: left;">触碰的宪法条款</th>
+<th style="text-align: left;">规约要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">追踪孩子的学习</td>
+<td style="text-align: left;">第十一条·亲子守护</td>
+<td style="text-align: left;">数据默认最小化、不上传服务器、家长可导出删除</td>
+</tr>
+<tr>
+<td style="text-align: left;">展示成长进度</td>
+<td style="text-align: left;">第七条·用户主权</td>
+<td style="text-align: left;">数据同步须用户主动确认，不自动记录</td>
+</tr>
+<tr>
+<td style="text-align: left;">「你该升级了」的反馈</td>
+<td style="text-align: left;">第八条·善行无辙迹</td>
+<td style="text-align: left;">评估在后台静默，不评分、不排名、不比较</td>
+</tr>
+<tr>
+<td style="text-align: left;">想当然地记录浏览</td>
+<td style="text-align: left;">第五条·减法优先</td>
+<td style="text-align: left;">区分「浏览」和「主动学习」，不记录无意义行为</td>
+</tr>
+</tbody>
+</table>
+<p><strong>转译结果</strong>：SkillUP 最终定调为「零评分、零排名、零比较」+「用户许可前置」+「81 章解读页不记录浏览」+「数据全部 localStorage」。</p>
+<p>这一步的价值：<strong>在写任何代码之前，先把「不能做什么」钉死</strong>。后来的 12 处偏差，恰恰是因为「没守住这些边界」而暴露的。</p>
+<hr />
+<h2 id="二-规约具体化为设计文档">二、规约具体化为设计文档</h2>
+<p>价值观落到可执行的规格，写成了《SkillUP 水德四阶段模型 · 执行规格》：</p>
+<h3 id="2-1-成长模型-水德隐喻">2.1 成长模型（水德隐喻）</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">阶段</th>
+<th style="text-align: left;">图标</th>
+<th style="text-align: left;">阅读章节数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">水滴</td>
+<td style="text-align: left;">💧</td>
+<td style="text-align: left;">0 ~ 9</td>
+</tr>
+<tr>
+<td style="text-align: left;">溪流</td>
+<td style="text-align: left;">💦</td>
+<td style="text-align: left;">10 ~ 29</td>
+</tr>
+<tr>
+<td style="text-align: left;">江河</td>
+<td style="text-align: left;">🌊</td>
+<td style="text-align: left;">30 ~ 59</td>
+</tr>
+<tr>
+<td style="text-align: left;">江海</td>
+<td style="text-align: left;">🪷</td>
+<td style="text-align: left;">60+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-阶段判定-三维综合-非单一阈值">2.2 阶段判定（三维综合，非单一阈值）</h3>
+<ul>
+<li><strong>江海</strong>：覆盖 ≥60 章 + 使用过 L4 + 提问 ≥10 次</li>
+<li><strong>江河</strong>：覆盖 ≥30 章 + 使用过 L3 + 提问 ≥5 次</li>
+<li><strong>溪流</strong>：覆盖 ≥10 章 + 使用过 L2</li>
+<li><strong>水滴</strong>：默认</li>
+</ul>
+<h3 id="2-3-数据模型-14-个字段">2.3 数据模型（14 个字段）</h3>
+<p><code>uid</code> / <code>lastVisit</code> / <code>dailyVisits</code> / <code>chaptersVisited</code> / <code>totalChaptersRead</code> / <code>currentStage</code> / <code>levelHistory</code> / <code>questions</code>（含 <code>chapter</code> + <code>keyword</code>）/ <code>trackingEnabled</code> / <code>stageHistory</code> / <code>lastStageCheck</code> / <code>allChaptersCompleted</code> 等。</p>
+<h3 id="2-4-独立许可机制">2.4 独立许可机制</h3>
+<p>独立的 <code>skillup-consent.js</code> 文件 + 两条征求路径（卡片点击 / 连续 3 天自动征求）+ 28 个肯定词 + 13 个否定词 + 4 重守卫（防重复征求）。</p>
+<h3 id="2-5-CSS-约束">2.5 CSS 约束</h3>
+<p>水墨道风配色，禁用 <code>box-shadow</code> / <code>blur</code> / <code>gradient</code>。</p>
+<hr />
+<h2 id="三-实现偏离-12-处偏差的暴露">三、实现偏离：12 处偏差的暴露</h2>
+<p>早期实现「看起来功能能用」，但逐条对照设计文档后，暴露出 <strong>12 处偏差</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">偏差项</th>
+<th style="text-align: left;">设计（规约要求）</th>
+<th style="text-align: left;">早期实现</th>
+<th style="text-align: left;">触及的原则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">成长模型隐喻</td>
+<td style="text-align: left;">水德（水→溪→河→海）</td>
+<td style="text-align: left;">植物（芽→苗→树→林）</td>
+<td style="text-align: left;">与宪法隐喻体系不符</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">阶段阈值</td>
+<td style="text-align: left;">10 / 30 / 60</td>
+<td style="text-align: left;">3 / 10 / 30</td>
+<td style="text-align: left;">成长节奏误判</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">触发规则</td>
+<td style="text-align: left;">4 条</td>
+<td style="text-align: left;">仅 2 条</td>
+<td style="text-align: left;">陪伴感缺失</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">连续天数</td>
+<td style="text-align: left;">真正连续检测</td>
+<td style="text-align: left;">首次至今差</td>
+<td style="text-align: left;">违背坦诚透明</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">许可文件</td>
+<td style="text-align: left;">独立 consent 文件</td>
+<td style="text-align: left;">内嵌 UI</td>
+<td style="text-align: left;">违背外挂增强</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">keyword 字段</td>
+<td style="text-align: left;">含关键词提取</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">「常问概念」缺失</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">chapter 关联</td>
+<td style="text-align: left;">questions 关联章节</td>
+<td style="text-align: left;">无 chapter</td>
+<td style="text-align: left;">成长画像失真</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">chaptersVisited</td>
+<td style="text-align: left;">数组</td>
+<td style="text-align: left;">对象</td>
+<td style="text-align: left;">数据结构不一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">章节底部引导</td>
+<td style="text-align: left;">要求实现</td>
+<td style="text-align: left;">未实现</td>
+<td style="text-align: left;">学习闭环缺失</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">CSS 视觉</td>
+<td style="text-align: left;">禁用 blur/shadow</td>
+<td style="text-align: left;">用了</td>
+<td style="text-align: left;">违反设计系统</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">lastVisit</td>
+<td style="text-align: left;">设计有</td>
+<td style="text-align: left;">用 firstVisit</td>
+<td style="text-align: left;">字段语义错误</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">totalChaptersRead</td>
+<td style="text-align: left;">独立字段</td>
+<td style="text-align: left;">动态计算</td>
+<td style="text-align: left;">迁移隐患</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这 12 处偏差暴露的核心问题是</strong>：<strong>「有规约」不等于「按规约做」</strong>。早期实现没有「逐条对照规约自检」这一环，导致功能「能跑」但「跑偏」。</p>
+<hr />
+<h2 id="四-修复与反哺-偏差如何变成方法的养料">四、修复与反哺：偏差如何变成方法的养料</h2>
+<h3 id="4-1-修复-v2-0-全部对齐">4.1 修复：v2.0 全部对齐</h3>
+<p>12 处偏差在 v2.0 全部修正，设计文档更新为「代码同步版」，明确标注「上一版偏差已修正」：</p>
+<ul>
+<li>隐喻改回水德四阶段</li>
+<li>阈值改回 10/30/60，并附加认知深度 + 提问条件</li>
+<li>4 条触发规则补全，<code>calcConsecutiveDays</code> 实现真正连续检测</li>
+<li>拆出独立 <code>skillup-consent.js</code></li>
+<li><code>CORE_KEYWORDS</code> + <code>extractKeyword</code>、<code>questions[].chapter</code>、<code>chaptersVisited: string[]</code></li>
+<li><code>getChapterGuidance</code> 实现章节引导</li>
+<li>CSS 修正为水墨道风约束</li>
+</ul>
+<h3 id="4-2-反哺-偏差被制度化记录">4.2 反哺：偏差被制度化记录</h3>
+<p><strong>这 12 处偏差没有「悄悄改掉」，而是被永久写进 AGENTS.md 的「已知偏差案例」</strong>，成为反面教材。从此，任何会话接手时都能直接看到「曾经偏离过什么、为什么错、正确做法是什么」。</p>
+<h3 id="4-3-方法被-补上了一环">4.3 方法被「补上了一环」</h3>
+<p>SkillUP 案例最重要的贡献，是<strong>把「偏差记录」这一环逼了出来</strong>：</p>
+<pre><code>古版竖排案例（在 SkillUP 之前）：
+    需求 → 转译 → 实现 → 自检          ← 只有正向闭环，没有偏差处理
+
+SkillUP 案例（补上缺失的一环）：
+    需求 → 转译 → 实现 → 自检 → 暴露偏差 → 修复 → 反哺规约
+                                    └──── 新增 ────┘
+</code></pre>
+<p>在 SkillUP 之前，「面向规约」方法只有「转译→实现→自检」的正向路径；是 SkillUP 的 12 处偏差，让方法补上了「偏差暴露→修复→反哺」的完整闭环。<strong>「偏差即教材」这条铁律，正是在这个案例中被逼出来的。</strong></p>
+<hr />
+<h2 id="五-SkillUP-案例给-面向规约-方法的独有启示">五、SkillUP 案例给「面向规约」方法的独有启示</h2>
+<ol>
+<li><strong>规约的价值在「偏离时」才真正显现</strong> —— 一帆风顺时规约像多余的约束，只有实现跑偏时，它才能提供「哪里错了、正确是什么」的对照标准。</li>
+<li><strong>自检清单不能省</strong> —— 12 处偏差的根源，是缺了「实现后逐条对照规约」这一环。功能「能跑」不等于「做对了」。</li>
+<li><strong>偏差要制度化，不能悄悄改</strong> —— 改掉 12 处只是「修 bug」，把它们记成反面教材才是「让方法进化」。</li>
+<li><strong>设计文档要「版本化 + 代码同步」</strong> —— v1.0 设计 vs 早期实现、v2.0 代码同步版，版本标记让「偏差从哪来、修到哪去」可追溯。</li>
+</ol>
+<hr />
+<h2 id="六-一句话总结">六、一句话总结</h2>
+<blockquote>
+<p>SkillUP 案例证明：「面向规约」方法真正的成熟，不在「零偏差」，而在「偏差能被制度化地记录、修复、并反哺成更准的规约」。<strong>规约不是用来保证「不犯错」的，是用来保证「犯错后能回到正轨」的。</strong></p>
+</blockquote>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="principle">先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</div>
+  <div>面向规约开发 · Spec-Oriented Development</div>
+</footer>
+</body>
+</html>

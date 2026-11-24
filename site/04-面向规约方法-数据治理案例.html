@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面向规约方法 · 数据治理案例复盘 · 面向规约开发</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">面向规约开发<span class="en">Spec-Oriented Development</span></a>
+    <nav class="site-nav"><a href="index.html">总索引</a><a href="01-面向规约开发方法论.html">方法论</a><a href="02-面向规约方法-全过程经验.html">全过程经验</a><a href="03-面向规约方法-SkillUP案例.html">SkillUP 案例</a><a href="04-面向规约方法-数据治理案例.html" class="active">数据治理案例</a><a href="05-面向规约-可复用模板.html">可复用模板</a><a href="06-面向规约-可复用模板-实际例子.html">模板实例</a><a href="07-术语对照基准-慧惠开发方法论-Skills.html">慧惠 Skills</a></nav>
+  </div>
+</header>
+<main class="wrap">
+
+
+<nav class="toc"><div class="toc-title">本页目录</div><ul><li><a href="#一-案例背景">一、案例背景</a></li><li><a href="#二-完整时间线-五轮纠偏">二、完整时间线（五轮纠偏）</a></li><li><a href="#三-五条核心教训">三、五条核心教训</a><ul><li><a href="#教训-1-依据-必须回指条款原文-不能凭印象挂编号">教训 1 · 「依据」必须回指条款原文，不能凭印象挂编号</a></li><li><a href="#教训-2-改一个词-必须做全局一致性扫描">教训 2 · 改一个词，必须做全局一致性扫描</a></li><li><a href="#教训-3-修改是连锁的-辨析-会逼出-依据-的矛盾">教训 3 · 修改是连锁的，「辨析」会逼出「依据」的矛盾</a></li><li><a href="#教训-4-锚点-链接-不是小事-先理解目标页的路由机制">教训 4 · 「锚点/链接」不是小事，先理解目标页的路由机制</a></li><li><a href="#教训-5-判断-默认状态-要回-CSS-初始值-不能靠-我以为">教训 5 · 判断「默认状态」要回 CSS 初始值，不能靠「我以为」</a></li></ul></li><li><a href="#四-与-面向规约-方法的呼应">四、与「面向规约」方法的呼应</a></li><li><a href="#五-可复用清单-迁移到新场景">五、可复用清单（迁移到新场景）</a></li><li><a href="#六-一句话总结">六、一句话总结</a></li></ul></nav>
+<article class="content">
+<h1 id="面向规约方法-数据治理案例复盘">面向规约方法 · 数据治理案例复盘</h1>
+<blockquote>
+<p>一句话定位：数据治理案例是「面向规约」方法在<strong>「依据回指规约」</strong>环节上的一次集中试炼——它不像古版竖排那样一帆风顺，也不像 SkillUP（成长模型）那样是「实现偏离」，而是「规约引用本身」经历了五轮纠偏才闭环。</p>
+</blockquote>
+<hr />
+<h2 id="一-案例背景">一、案例背景</h2>
+<p><strong>目标</strong>：在伦理页新增「数据四条铁律」，并升格为宪法附录三。</p>
+<ul>
+<li>四条铁律：源头减量 / 分级治理 / 脱敏流转 / 降解消亡</li>
+<li>四个落地物：宪法 v2.1.0 附录三、ethics 网页 section、首页页脚锚点、源方案文件</li>
+<li>方法定位：这是「面向规约」五步闭环里 <strong>「转译 → 对齐 → 自检」</strong> 三步的实战检验，尤其考验「对齐」——每条铁律都要挂靠宪法条款作为依据。</li>
+</ul>
+<p><strong>为什么这个案例值得复盘</strong>：它暴露的 5 个错误，没有一个出现在「需求理解」或「代码实现」层面，全部出现在<strong>「规约对齐」和「全局一致性」</strong>层面——这正是「面向规约」方法最容易失守、也最该守护的地方。</p>
+<hr />
+<h2 id="二-完整时间线-五轮纠偏">二、完整时间线（五轮纠偏）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">轮次</th>
+<th style="text-align: left;">暴露的问题</th>
+<th style="text-align: left;">根因</th>
+<th style="text-align: left;">修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">①</td>
+<td style="text-align: left;">依据引用错误：第十四条被当成「SkillUP 层边界」（实为「多元思维尊重」）、第九条错配「脱敏」（实为「透明」）、第三条错配「可逆消亡」（实为「敢于遗忘」人格表述），且漏掉最贴数据的第七条、第十一条</td>
+<td style="text-align: left;">凭条款<strong>标题/印象</strong>挂编号，未逐字核对原文</td>
+<td style="text-align: left;">重挂依据</td>
+</tr>
+<tr>
+<td style="text-align: left;">②</td>
+<td style="text-align: left;">标题「可逆消亡」与第二十一条「可逆原则」字面矛盾（可逆≈可恢复 vs 消亡≈消失）</td>
+<td style="text-align: left;">术语歧义未辨析</td>
+<td style="text-align: left;">改名「可降解消亡」→ 最终「降解消亡」</td>
+</tr>
+<tr>
+<td style="text-align: left;">③</td>
+<td style="text-align: left;">依据行「第二十一条（可逆原则）」与下方「两者方向相反」的辨析自相矛盾</td>
+<td style="text-align: left;">改了辨析、没同步依据</td>
+<td style="text-align: left;">依据/对照拆分</td>
+</tr>
+<tr>
+<td style="text-align: left;">④</td>
+<td style="text-align: left;">锚点 <code>#data-rules</code> 被 ethics 页 hash 路由误判为 tab id → 空白页</td>
+<td style="text-align: left;">未理解目标页路由机制</td>
+<td style="text-align: left;">改 hash 判断逻辑</td>
+</tr>
+<tr>
+<td style="text-align: left;">⑤</td>
+<td style="text-align: left;">collapse-body 默认 <code>max-height:0</code>（折叠），滚过去只有标题行</td>
+<td style="text-align: left;">未确认元素默认状态</td>
+<td style="text-align: left;">scrollToAnchor 自动展开</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键观察</strong>：五轮纠偏里，每一轮的「修复」都制造了下一轮的「新问题」——①修正依据 → ②暴露标题歧义 → ③暴露依据与辨析矛盾 → ④加锚点触发路由 bug → ⑤暴露默认折叠。这是典型的<strong>「点状修改 vs 面状影响」</strong>：改一个点，影响一个面，必须逐面清扫。</p>
+<hr />
+<h2 id="三-五条核心教训">三、五条核心教训</h2>
+<h3 id="教训-1-依据-必须回指条款原文-不能凭印象挂编号">教训 1 · 「依据」必须回指条款原文，不能凭印象挂编号</h3>
+<ul>
+<li><strong>现象</strong>：四条铁律的四处依据，三处错误、一处遗漏。</li>
+<li><strong>根因</strong>：挂「依据」时，脑子里想的是条款的「标题」（如"第九条是坦诚透明，透明就约等于脱敏"），而不是打开宪法读<strong>原文</strong>。</li>
+<li><strong>教训</strong>：<strong>实现回指规约 = 回指到条款的原文，不是回指到条款的标题或印象。</strong> 每挂一个依据，都要能答出「这条原文里的哪句话支撑了这条铁律」。</li>
+<li><strong>可操作动作</strong>：挂依据前，把目标条款的<strong>原文</strong>粘贴到依据旁对照，确认语义真的一致。</li>
+</ul>
+<h3 id="教训-2-改一个词-必须做全局一致性扫描">教训 2 · 改一个词，必须做全局一致性扫描</h3>
+<ul>
+<li><strong>现象</strong>：标题「可逆消亡→降解消亡」后，先冒出「可降解消亡」在宪法版本记录、伦理页版本记录里残留「可」字，又暴露出依据行与辨析的矛盾（教训 3）。</li>
+<li><strong>根因</strong>：改「点」没有查「面」——改了 section 里的标题，忘了版本记录里还引用着旧词。</li>
+<li><strong>教训</strong>：<strong>一个术语/概念的每一次变更，都是一次全局重命名</strong>，不是局部替换。</li>
+<li><strong>可操作动作</strong>：改完一个词，<code>grep</code> 全仓搜旧词，标题、正文、依据、版本记录、其他文档一处不漏。</li>
+</ul>
+<h3 id="教训-3-修改是连锁的-辨析-会逼出-依据-的矛盾">教训 3 · 修改是连锁的，「辨析」会逼出「依据」的矛盾</h3>
+<ul>
+<li><strong>现象</strong>：当辨析句明确「第二十一条的可逆（能力可恢复）与降解（数据不回来）<strong>方向相反</strong>」后，依据行里还挂着「第二十一条（可逆原则）」就自相矛盾了——「我的根据是那条跟我相反的条款」。</li>
+<li><strong>根因</strong>：<strong>依据（支撑）和对照（反衬）是两个不同的位置</strong>，混在一起必矛盾。</li>
+<li><strong>教训</strong>：<strong>改了某一处，要顺着逻辑链排查所有「引用」它的地方是否还成立</strong>。最终解法是把「依据 / 对照」拆开：第七条做依据，第二十一条做对照。</li>
+<li><strong>可操作动作</strong>：一个论点如果「依据 A + 对照 B」，就把 A、B 分行写，别用「·」连在一起装成两个依据。</li>
+</ul>
+<h3 id="教训-4-锚点-链接-不是小事-先理解目标页的路由机制">教训 4 · 「锚点/链接」不是小事，先理解目标页的路由机制</h3>
+<ul>
+<li><strong>现象</strong>：加 <code>id="data-rules"</code> + 首页链接改 <code>#data-rules</code>，看起来只是加个锚点，结果 ethics 页的 hash 路由把 <code>#data-rules</code> 当 tab id 交给 <code>activateTab</code> → 找不到对应 tab → 所有 panel 被摘掉 active → <strong>空白页</strong>。</li>
+<li><strong>根因</strong>：只看到「链接指向哪」，没读目标页的 <strong>hash/路由逻辑</strong>（那段 <code>if(hash &amp;&amp; getElementById(hash)) activateTab(hash)</code> 会把<strong>任何</strong>存在的 id 当 tab 处理）。</li>
+<li><strong>教训</strong>：改跳转/链接前，先读目标页的 hash 路由、tab 切换、折叠机制，确认「这个 hash 会被怎么处理」。</li>
+<li><strong>可操作动作</strong>：任何 <code>#锚点</code> 改动，先问一句「目标页有没有自己的 hash 路由会抢这个 hash」。</li>
+</ul>
+<h3 id="教训-5-判断-默认状态-要回-CSS-初始值-不能靠-我以为">教训 5 · 判断「默认状态」要回 CSS 初始值，不能靠「我以为」</h3>
+<ul>
+<li><strong>现象</strong>：连反馈方自己都承认「我看错了，它默认折叠」——<code>.collapse-body</code> 默认 <code>max-height:0</code>，即「数据四条铁律」默认是折叠的，滚过去只有标题行。</li>
+<li><strong>根因</strong>：判断「展开还是折叠」靠「我觉得它应该默认展开」，而不是看 CSS 的初始值。</li>
+<li><strong>教训</strong>：一个 UI 元素是可见/隐藏、展开/折叠，<strong>由 CSS 初始值决定，不由直觉决定</strong>。</li>
+<li><strong>可操作动作</strong>：涉及「默认状态」的判断，回到 <code>.collapse-body { max-height:0 }</code> 这类代码行去确认，而不是口头说「它默认展开」。</li>
+</ul>
+<hr />
+<h2 id="四-与-面向规约-方法的呼应">四、与「面向规约」方法的呼应</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">教训</th>
+<th style="text-align: left;">对应五步闭环环节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">教训 1（依据回原文）</td>
+<td style="text-align: left;">「转译」+「对齐」</td>
+</tr>
+<tr>
+<td style="text-align: left;">教训 2（全局一致性扫描）</td>
+<td style="text-align: left;">「自检」</td>
+</tr>
+<tr>
+<td style="text-align: left;">教训 3（依据/对照拆分）</td>
+<td style="text-align: left;">「对齐」</td>
+</tr>
+<tr>
+<td style="text-align: left;">教训 4（路由机制）</td>
+<td style="text-align: left;">「自检」</td>
+</tr>
+<tr>
+<td style="text-align: left;">教训 5（默认状态）</td>
+<td style="text-align: left;">「自检」</td>
+</tr>
+</tbody>
+</table>
+<p>其中教训 1、2、3 直指「面向规约」方法的<strong>核心价值</strong>——「规约对齐的深度，取决于你是否回到条款原文、是否做全局一致性扫描」。而教训 4、5 提醒：<strong>「面向规约」不只是对好条款，还要对好「目标系统的既有机制」</strong>（路由、样式、默认状态），否则规约对齐了，实现却塌了。</p>
+<hr />
+<h2 id="五-可复用清单-迁移到新场景">五、可复用清单（迁移到新场景）</h2>
+<p>挂依据/改术语/加跳转时，过一遍这 5 问：</p>
+<ol>
+<li><strong>这条依据的原文，真的说了这个意思吗？</strong>（打开宪法逐字核对，别凭标题）</li>
+<li><strong>我改的这个词，还有哪些地方在引用？</strong>（<code>grep</code> 全仓搜旧词）</li>
+<li><strong>改了论点，依据和辨析还自洽吗？</strong>（依据=支撑、对照=反衬，分开写）</li>
+<li><strong>目标页有没有 hash 路由会抢我的锚点？</strong>（先读路由逻辑再改链接）</li>
+<li><strong>这个元素的默认状态，CSS 初始值是什么？</strong>（看 <code>max-height</code>/<code>display</code>，别看直觉）</li>
+</ol>
+<hr />
+<h2 id="六-一句话总结">六、一句话总结</h2>
+<p><strong>「面向规约」最容易失守的不是「有没有规约」，而是「规约对齐的深度」——回不回原文、扫不扫全局、懂不懂目标系统的既有机制。数据治理案例用五轮纠偏证明：这三点每失守一点，就要多补一轮。</strong></p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="principle">先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</div>
+  <div>面向规约开发 · Spec-Oriented Development</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面向规约开发（Spec-Oriented Development） · 面向规约开发</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">面向规约开发<span class="en">Spec-Oriented Development</span></a>
+    <nav class="site-nav"><a href="index.html">总索引</a><a href="01-面向规约开发方法论.html" class="active">方法论</a><a href="02-面向规约方法-全过程经验.html">全过程经验</a><a href="03-面向规约方法-SkillUP案例.html">SkillUP 案例</a><a href="04-面向规约方法-数据治理案例.html">数据治理案例</a><a href="05-面向规约-可复用模板.html">可复用模板</a><a href="06-面向规约-可复用模板-实际例子.html">模板实例</a><a href="07-术语对照基准-慧惠开发方法论-Skills.html">慧惠 Skills</a></nav>
+  </div>
+</header>
+<main class="wrap">
+
+
+<nav class="toc"><div class="toc-title">本页目录</div><ul><li><a href="#一-为什么需要-面向规约">一、为什么需要「面向规约」</a></li><li><a href="#二-规约的四个层级">二、规约的四个层级</a></li><li><a href="#三-五步闭环">三、五步闭环</a></li><li><a href="#四-案例复盘-古版-竖排的完整过程">四、案例复盘：古版·竖排的完整过程</a><ul><li><a href="#全流程时间线">全流程时间线</a></li><li><a href="#三个最能体现-规约-力量的细节">三个最能体现「规约」力量的细节</a></li></ul></li><li><a href="#五-收益">五、收益</a></li><li><a href="#六-如何上手">六、如何上手</a></li></ul></nav>
+<article class="content">
+<h1 id="面向规约开发-Spec-Oriented-Development">面向规约开发（Spec-Oriented Development）</h1>
+<blockquote>
+<p>让 AI 协作从「一次性聪明」走向「可复用约束」
+案例来源：《道德经》知识库项目（daodejing-kb）「古版·竖排」功能的完整复盘</p>
+</blockquote>
+<hr />
+<h2 id="一-为什么需要-面向规约">一、为什么需要「面向规约」</h2>
+<p>长期与 AI 结对开发，会撞上三个反复出现的痛点：</p>
+<ol>
+<li><strong>跨会话漂移</strong> —— 换一个上下文、换一次模型，AI 就忘了之前的约定，同样的功能写出不一样的风格。</li>
+<li><strong>伦理漂移</strong> —— 功能越做越「花哨」，渐渐偏离最初的价值观边界，没人说得清当初为什么这么定。</li>
+<li><strong>经验不沉淀</strong> —— 一次性解决了一个难题（比如某个二义字的处理），下次遇到还得从头推理一遍。</li>
+</ol>
+<p>「面向规约」的回答是：<strong>不依赖 AI 的「自觉」，而是依赖一套可被机器和人共同遵守的规约</strong>，让 AI 始终在明确的边界内稳定产出。</p>
+<hr />
+<h2 id="二-规约的四个层级">二、规约的四个层级</h2>
+<p>规约不是一份文档，而是<strong>从抽象到具体、层层落实</strong>的四层体系：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">层级</th>
+<th style="text-align: left;">是什么</th>
+<th style="text-align: left;">回答的问题</th>
+<th style="text-align: left;">载体示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>① 宪法</strong></td>
+<td style="text-align: left;">价值观与伦理边界</td>
+<td style="text-align: left;">为什么做、边界在哪</td>
+<td style="text-align: left;">最高产品宪法（用户主权、减法优先、坦诚透明、外挂增强等条款）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>② 设计文档</strong></td>
+<td style="text-align: left;">具体功能的规格</td>
+<td style="text-align: left;">做成什么样</td>
+<td style="text-align: left;">数据模型、阈值、状态机、命名</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>③ 工程约定</strong></td>
+<td style="text-align: left;">技术实现约束</td>
+<td style="text-align: left;">怎么做</td>
+<td style="text-align: left;">AGENTS.md（外挂增强、零服务端、设计 tokens、命名规范、代码模式）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>④ 项目记忆</strong></td>
+<td style="text-align: left;">跨会话沉淀</td>
+<td style="text-align: left;">踩过什么坑、定了什么决策</td>
+<td style="text-align: left;">Hard Constraints / Conventions / Lessons Learned</td>
+</tr>
+</tbody>
+</table>
+<p>关键点：<strong>每一层都是上一层的具体化</strong>。宪法说「用户主权」，设计文档就要写「可切换 + 记住用户选择」，工程约定就要写「localStorage 持久化」，代码里再落到 <code>localStorage.setItem(...)</code>。四层之间可以一路追溯。</p>
+<hr />
+<h2 id="三-五步闭环">三、五步闭环</h2>
+<p>这是可复用的核心工作流：</p>
+<ol>
+<li><strong>需求即转译</strong> —— 拿到需求先问「要满足哪几条规约」，不急着写代码。</li>
+<li><strong>实现即对齐</strong> —— 每个设计决策回指规约条款号，代码注释显式标注「为什么这么写」。</li>
+<li><strong>验证即自检</strong> —— 用固定清单逐条对照规约，而不是只看「功能能不能跑」。</li>
+<li><strong>经验即固化</strong> —— 把一次性聪明固化为脚本 / 流程 / 约定，让「复查」变成「按规约执行」。</li>
+<li><strong>偏差即教材</strong> —— 把偏离规约的实现记成反面案例，供下一个会话避坑。</li>
+</ol>
+<hr />
+<h2 id="四-案例复盘-古版-竖排的完整过程">四、案例复盘：古版·竖排的完整过程</h2>
+<h3 id="全流程时间线">全流程时间线</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">阶段</th>
+<th style="text-align: left;">关键动作</th>
+<th style="text-align: left;">规约如何起作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>① 需求提出</strong></td>
+<td style="text-align: left;">最初想做古籍竖排 PDF，后转向 web 版竖排展示，先做第一章 demo</td>
+<td style="text-align: left;">需求先被翻译成「要满足哪几条宪法」，而非直接写代码</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>② 伦理对齐</strong></td>
+<td style="text-align: left;">做减法优先 / 坦诚透明 / 用户主权三项整改</td>
+<td style="text-align: left;">每条改动回指宪法条款号，代码注释显式标注</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>③ 繁体与字体</strong></td>
+<td style="text-align: left;">竖排转繁体 + 复古楷体字体栈</td>
+<td style="text-align: left;">二义字「语境定字」经验被固化，而非停留在口头</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>④ 规约沉淀</strong></td>
+<td style="text-align: left;">复查流程写入 AGENTS.md，建 PROJECT_CONTEXT / README</td>
+<td style="text-align: left;">一次性经验变成可复现的约定与命令</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>⑤ 运营验证</strong></td>
+<td style="text-align: left;">双平台部署 + 本地复验三项功能</td>
+<td style="text-align: left;">验证按「默认激活 / 繁体正确 / 右到左多列」逐条自检</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三个最能体现-规约-力量的细节">三个最能体现「规约」力量的细节</h3>
+<p><strong>细节一：代码注释直接标注条款映射</strong></p>
+<pre><code class="language-javascript">/* 伦理对齐（慧惠·伦理即道体）：
+   用户主权(第7条) → localStorage 记住选择，不强制
+   减法优先(第5条) → 默认回归原文古版；切换控件弱存在感
+   坦诚透明(第9条) → 底本 / 异文 / AI辅助 显性标注
+   外挂增强(第10条) → 不改动 .original-text 内部结构，运行时叠加 */
+</code></pre>
+<p>代码本身成了「为什么这么写」的证据链，任何人（或任何 AI）读代码都能追溯到规约条款。</p>
+<p><strong>细节二：一次性经验固化为三模式脚本</strong></p>
+<p>简繁转换有个隐蔽难点：二义字要按语境定字（「云」说义不转「雲」、「谷」山谷不转「穀」但「不谷」谦称转「不穀」）。这个经验没有停留在对话里，而是固化为：</p>
+<ul>
+<li>一个生成脚本（含按语境定字的映射表）</li>
+<li>一个同形字白名单快照</li>
+<li>三条命令：<code>s2t:check</code>（检查新增字）/ <code>s2t:accept</code>（接受同形字）/ <code>s2t</code>（重新生成）</li>
+</ul>
+<p>此后任何人改原文，只需「按规约复查」，不需要重新推理整个简繁逻辑。</p>
+<p><strong>细节三：工程约束直接消除一类 bug</strong></p>
+<p>AGENTS.md 里有一条约定「新增功能优先外挂增强，最小化修改核心代码」。古版竖排因此做成一个纯外挂模块（新 JS + 新 CSS），不碰章节核心代码，可随时回退。这既守住了「减法优先」，又天然降低了回归风险。</p>
+<hr />
+<h2 id="五-收益">五、收益</h2>
+<ul>
+<li><strong>一致性</strong>：跨会话、跨模型，产出风格稳定，边界清晰。</li>
+<li><strong>可追溯</strong>：任何一行代码都能回指到「为什么这么写」的规约条款。</li>
+<li><strong>可复现</strong>：复查、纠偏、返工都有既定流程，不再依赖个人记忆。</li>
+<li><strong>可传承</strong>：经验随规约沉淀，新人（或新 AI）接手上手成本低。</li>
+</ul>
+<hr />
+<h2 id="六-如何上手">六、如何上手</h2>
+<ol>
+<li>先写 <strong>宪法</strong>（3～8 条价值观/边界即可，别贪多）。</li>
+<li>为当前要做的功能写一份 <strong>设计文档</strong>（数据模型 + 阈值 + 命名 + 状态机）。</li>
+<li>建一份 <strong>AGENTS.md</strong> 约定（技术约束 + 代码模式 + 复查清单）。</li>
+<li>每个会话结束，把结论写入 <strong>项目记忆</strong>（Hard Constraints / Conventions / Lessons Learned）。</li>
+<li>配套一份 <strong>可复用模板</strong>（见姊妹篇《面向规约开发 · 可复用模板》）。</li>
+</ol>
+<blockquote>
+<p>原则：<strong>先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</strong></p>
+</blockquote>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="principle">先有规约，再写代码；实现回指规约，验证对照规约，经验反哺规约。</div>
+  <div>面向规约开发 · Spec-Oriented Development</div>
+</footer>
+</body>
+</html>

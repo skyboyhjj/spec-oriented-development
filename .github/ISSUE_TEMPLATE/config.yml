@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 阅读文档导航
+    url: https://github.com/skyboyhjj/spec-oriented-development/blob/main/docs/README.md
+    about: 先读文档导航，确认问题是否已被覆盖
